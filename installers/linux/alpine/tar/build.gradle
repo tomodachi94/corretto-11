@@ -123,7 +123,7 @@ task createTestImage(type: Exec) {
 task packageTestImage(type: Tar) {
     dependsOn createTestImage
     description 'Package test results'
-    archiveName "amazon-corretto-testimage-${project.version.full}-alpine-linux-${arch_alias}.tar.gz"
+    archiveFileName = "amazon-corretto-testimage-${project.version.full}-alpine-linux-${arch_alias}.tar.gz"
     compression Compression.GZIP
     from(testResultingImage) {
         include '**'
@@ -135,7 +135,7 @@ task packageTestImage(type: Tar) {
 task packageDebugSymbols(type: Tar) {
     dependsOn packageTestImage
     description 'Package debug symbols'
-    archiveName "amazon-corretto-debugsymbols-${project.version.full}-alpine-linux-${arch_alias}.tar.gz"
+    archiveFileName = "amazon-corretto-debugsymbols-${project.version.full}-alpine-linux-${arch_alias}.tar.gz"
     compression Compression.GZIP
     from(jdkResultingImage) {
         include 'bin/*.diz'
@@ -149,7 +149,7 @@ task packageBuildResults(type: Tar) {
     description 'Compresses the JDK image and puts the results in build/distributions.'
     dependsOn packageDebugSymbols
     dependsOn importAmazonCacerts
-    archiveName "amazon-corretto-${project.version.full}-alpine-linux-${arch_alias}.tar.gz"
+    archiveFileName = "amazon-corretto-${project.version.full}-alpine-linux-${arch_alias}.tar.gz"
     compression Compression.GZIP
     from(buildRoot) {
         include 'ADDITIONAL_LICENSE_INFO'
